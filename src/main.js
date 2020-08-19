@@ -1,14 +1,10 @@
 const WIDTH = 40
 const HEIGHT = 20
 
-import {ClassicRender} from "./ui/classic_render"
-import {Grid} from "./grid.js"
+import { ClassicRender } from "./ui/classic_render"
+import { Grid } from "./grid.js"
+import { percentChance, rand, addVector } from "./lib/utils"
 
-const percentChance = (x) => {
-  if (x>=100) return true;
-
-  return Math.random() < (x/100);
-}
 
 const dig = (map, x,  y) => {
   // console.log("dig",x,y)
@@ -26,7 +22,6 @@ const dig = (map, x,  y) => {
   }
 }
 
-const rand = (x) => Math.floor(Math.random() * x);
 
 let level = 0
 
@@ -82,6 +77,27 @@ const newCave = () => {
 }
 
 
+import {Gold, Wall, Floor, Potion, Armor, Weapon, Stairs} from "./game/entities"
+
+function animate(what) {
+  switch(what) {
+    case ".":
+      return new Floor();
+    case "#":
+      return new Wall();
+    case "*":
+      return new Gold();
+    case "!":
+      return new Potion();
+    case "%":
+      return new Armor();
+    case "(":
+      return new Weapon();
+    case "<":
+      return new Stairs();
+  }
+}
+
 class Game {
   constructor() {
     this.health = 10
@@ -97,12 +113,33 @@ class Game {
   newLevel() {
     this.cave = newCave();
   }
+  movePlayer(vector) {
+    let playerLocation = this.cave.find("@")
+    let newLoc = addVector(playerLocation, vector)
+    let icon = this.cave.get(...newLoc)
+    let entity = animate(icon)
+    console.log(icon)
+    if (!entity.isSolid) {
+      entity.interact()
+      this.cave.set(...playerLocation, ".")
+      this.cave.set(...newLoc, "@")
+    }
+  }
   get wonMessage() {
     return ""
   }
 }
 
-
+let DIRS = {
+  n: [0, -1],
+  s: [0, 1],
+  e: [1, 0],
+  w: [-1, 0],
+  nw: [-1, -1],
+  ne: [1, -1],
+  se: [1, 1],
+  sw: [-1, 1]
+}
 
 
 function start() {
@@ -110,12 +147,40 @@ function start() {
   window.game = game
 
   const renderer = new ClassicRender()
-
   renderer.draw()
 }
 
 window.onload = () => {
   start()
+}
+
+const KEY_to_DIR = {
+  ArrowLeft: "w",
+  ArrowRight: "e",
+  ArrowDown: "s",
+  ArrowUp: "n",
+
+  q: "nw",
+  w: "n",
+  e: "ne",
+  a: "w",
+  s: "s",
+  d: "e",
+  z: "sw",
+  x: "s",
+  c: "se"
+}
+
+document.onkeyup = (event) =>  {
+  if (KEY_to_DIR[event.key]) {
+    let dir = KEY_to_DIR[event.key]
+    let vector = DIRS[dir]
+    game.movePlayer(vector)
+
+    const renderer = new ClassicRender()
+    renderer.draw()
+    // alert(dir)
+  }
 }
 
 

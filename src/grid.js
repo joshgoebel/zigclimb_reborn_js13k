@@ -39,6 +39,16 @@ class Grid {
   flipH() {
     this.data = this.data.map(r => r.reverse())
   }
+  find(data, left=0, top=0, w=this.width, h=this.height) {
+    for (let x=left; x<left+w; x++) {
+      for (let y=top; y<top+h; y++) {
+        if (this.data[y][x] === data) {
+          return [x,y]
+        }
+      }
+    }
+    return undefined;
+  }
   count(data, left=0, top=0, w=this.width, h=this.height) {
     let count = 0;
     for (let x=left; x<left+w; x++) {
