@@ -1,16 +1,8 @@
 const WIDTH = 40
 const HEIGHT = 20
 
-import CSSGrid from "./lib/css_grid"
+import {ClassicRender} from "./ui/classic_render"
 import {Grid} from "./grid.js"
-
-const render = (map) => {
-  for (let x =0; x<WIDTH; x++) {
-    for (let y =0; y<HEIGHT; y++) {
-      window.grid.set([x,y], map.get(x,y))
-    }
-  }
-}
 
 const percentChance = (x) => {
   if (x>=100) return true;
@@ -72,7 +64,7 @@ const newCave = () => {
 
   // baddies
   let baddies = level*2 + rand(9)
-  while(baddies) {
+  while (baddies) {
     for (;;) {
       let monster = String.fromCharCode("a".charCodeAt(0) + rand(7) + level)
       let x = rand(WIDTH);
@@ -90,12 +82,40 @@ const newCave = () => {
 }
 
 
-window.onload = () => {
-  let grid = new CSSGrid("grid", WIDTH, HEIGHT)
-  window.grid = grid
+class Game {
+  constructor() {
+    this.health = 10
+    this.level = 0
+    this.armor = 1
+    this.weapon = 1
+    this.gold = 0
 
-  let cave = newCave();
-  render(cave)
+    this.width = WIDTH
+    this.height = HEIGHT
+    this.newLevel()
+  }
+  newLevel() {
+    this.cave = newCave();
+  }
+  get wonMessage() {
+    return ""
+  }
+}
+
+
+
+
+function start() {
+  const game = new Game()
+  window.game = game
+
+  const renderer = new ClassicRender()
+
+  renderer.draw()
+}
+
+window.onload = () => {
+  start()
 }
 
 

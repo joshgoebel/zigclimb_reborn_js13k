@@ -77,30 +77,44 @@ input {
 
 #grid span
 {
-  border:1px solid #333;
+  // border:1px dashed #222;
   border-width: 1px 1px 0 0;
   color:#ccc;
   // text-align: center;
   // align-self: center;
   // justify-self: center;
 
-  font-size:25px;
+
   font-weight:200;
 
   display: flex;
   align-items: center;
   justify-content: center;
+}
 
-  // justify-items: center;
+#grid span.empty {
+  position:relative;
+  top:-0.25em;
+  font-size:0.5em;
+}
+
+#grid span.status {
+  padding-top:5px;
+  padding-left:1em;
+  display: block;
+  grid-column: 1 / span 30;
+  // border:1px solid brown;
 }
 
 #grid {
-  // background: green;
-  font-family: 'Menlo', 'Monaco', monospace;
+  margin:5px 10px;
+  font-size:30px;
+  // font-family: 'Menlo', 'Monaco', monospace;
+  font-family: 'Monaco', monospace;
   display:grid;
-  grid-template-columns: 40px;
+  // grid-template-columns: 40px;
   grid-template-rows: 40px;
 
-  grid-auto-columns: 40px;
+  // grid-auto-columns: 1/50;
   grid-auto-rows: 40px;
 }
