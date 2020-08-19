@@ -1,0 +1,41 @@
+{
+  "private": true,
+  "name": "js13k-boilerplate",
+  "version": "1.1.0",
+  "description": "JS13KGames boilerplate",
+  "author": "Florent Cailhol <florent.cailhol@gmail.com>",
+  "license": "MIT",
+  "repository": "ooflorent/js13k-boilerplate",
+  "devDependencies": {
+    "acorn": "^7.0.0",
+    "express": "^4.8.4",
+    "gulp": "^4.0.2",
+    "gulp-better-rollup": "^4.0.1",
+    "gulp-buffer": "0.0.2",
+    "gulp-concat": "^2.3.4",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-eslint": "^6.0.0",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-if": "^3.0.0",
+    "gulp-less": "^4.0.1",
+    "gulp-micro": "^3.0.0",
+    "gulp-size": "^3.0.0",
+    "gulp-terser": "^1.2.0",
+    "gulp-util": "^3.0.8",
+    "gulp-zip": "^5.0.0",
+    "minimist": "^1.2.0",
+    "rimraf": "^3.0.0",
+    "rollup": "^1.20.0",
+    "terser": "^4.2.0",
+    "vinyl-source-stream": "^2.0.0"
+  },
+  "scripts": {
+    "build": "gulp build",
+    "dist": "gulp dist --prod",
+    "start": "gulp watch serve",
+    "test": "gulp lint"
+  },
+  "dependencies": {
+    "nocache": "^2.1.0"
+  }
+}
