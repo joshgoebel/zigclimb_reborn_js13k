@@ -4,7 +4,7 @@ const HEIGHT = 20
 import { ClassicRender } from "./ui/classic_render"
 import { Grid } from "./grid.js"
 import { percentChance, rand, addVector } from "./lib/utils"
-
+import { zzfx } from "./lib/zzfx"
 
 const dig = (map, x,  y) => {
   // console.log("dig",x,y)
@@ -23,9 +23,7 @@ const dig = (map, x,  y) => {
 }
 
 
-let level = 0
-
-const newCave = () => {
+const newCave = (level) => {
 
   let items = ["@","<","!","%","("]
 
@@ -80,8 +78,8 @@ import { animate, Wall } from "./game/entities"
 
 class Game {
   constructor() {
-    this.health = 10
     this.level = 0
+    this.health = 10
     this.armor = 1
     this.weapon = 1
     this.gold = 0
@@ -91,7 +89,7 @@ class Game {
     this.newLevel()
   }
   newLevel() {
-    this.cave = newCave();
+    this.cave = newCave(this.level);
   }
   tick() {
 
@@ -167,7 +165,7 @@ const KEY_to_DIR = {
   c: "se"
 }
 
-document.onkeyup = (event) =>  {
+document.onkeydown = (event) =>  {
   if (KEY_to_DIR[event.key]) {
     let dir = KEY_to_DIR[event.key]
     let vector = DIRS[dir]
