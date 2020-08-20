@@ -3,6 +3,44 @@ import { ClassicRender } from "./classic_render"
 
 import CSSGrid from "../lib/css_grid"
 
+TILES = {
+  "@": 6,
+  "#": 13,
+  ".": 0
+}
+
+class SpriteSheet {
+  constructor(url, opts) {
+    this.url = url
+    this.opts = opts
+  }
+  render(cell, icon) {
+    let tile = TILES[icon]
+    if (!tile) return;
+
+    cell.style.backgroundImage = this.url;
+    // TODO: move to css
+    cell.style.imageRendering = "pixelated";
+    cell.style.backgroundSize = `auto calc(${this.opts.sheet[1]}px*40/16)`
+
+
+    let tx = tile % this.opts.width
+    let ty = Math.floor(tile / this.opts.width)
+
+    let x = tx * this.tile[0]
+    let y = ty * this.tile[1] + this.opts.yOffset
+
+    cell.style.backgroundPosition=`calc(${x}*40/16) calc(-${y}*40/16)`;
+  }
+}
+
+let SS = new SpriteSheet("url(loveable_rogue.png)",
+  {
+    sheet: [207,240],
+    tile: [16,16],
+    width:13,
+    yOffset: 144
+  })
 
 const renderTile = (cell, icon) => {
   cell.innerHTML = icon
