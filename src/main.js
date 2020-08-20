@@ -140,7 +140,8 @@ function start() {
   const game = new Game()
   window.game = game
 
-  const renderer = new TileRender()
+  // const renderer = new TileRender()
+  const renderer = new ClassicRender()
   window.renderer = renderer
   renderer.draw()
 }

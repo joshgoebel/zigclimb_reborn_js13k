@@ -1,10 +1,12 @@
 import CSSGrid from "../lib/css_grid"
 
 
-const colorize = (icon, cell) => {
+const renderTile = (cell, icon) => {
   cell.style.color=""
   cell.style.backgroundColor=""
   cell.className = ""
+
+  cell.innerHTML = icon
 
   if (icon == "~") {
     cell.style.backgroundColor = "#012"
@@ -17,7 +19,7 @@ const colorize = (icon, cell) => {
   }
   if (icon >= "a" && icon <="z") {
     cell.style.color = "#fc6"
-    // cell.style.backgroundColor = "#1a1a00"
+    cell.style.backgroundColor = "#1a1a00"
   }
   if (icon === "@") {
     // cell.innerHTML = "😀"
@@ -60,25 +62,15 @@ const colorize = (icon, cell) => {
 
   // }
   if (icon == "#") {
-  //   // console.log(cell.innerHTML)
-  //   // cell.childNodes[0].remove()
-  //   child.innerHTML=""
-  //   child.style.display="block"
-  //   child.style.backgroundImage ="url(loveable_rogue.png)";
-  //   child.style.backgroundPosition="0px calc(-160px*40/16)";
-  //   // child.style.backgroundColor="red";
-  //   // child.style.border="2px solid red"
-  //   // child.style.backgroundRepeat="no-repeat"
-  //   // child.style.transform ="scaleX(2.7)"
-  //   // cell.style.color = "#666"
-  //   // cell.style.opacity="0.5"
+    cell.style.color = "#777"
+    cell.style.backgroundColor = "#222"
   }
 }
 
 class ClassicRender {
   constructor() {
     this.grid = new CSSGrid("grid", game.width, game.height)
-    this.grid.colorize = colorize;
+    // this.grid.colorize = colorize;
     window.grid = this.grid
   }
 
@@ -94,7 +86,8 @@ class ClassicRender {
     this.dash()
     for (let x =0; x<game.width; x++) {
       for (let y =0; y<game.height; y++) {
-        this.grid.set([x,y], map.get(x,y))
+        // this.grid.set([x,y], map.get(x,y))
+        renderTile(this.grid.getCell([x,y]), map.get(x,y))
       }
     }
   }
