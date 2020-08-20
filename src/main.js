@@ -72,6 +72,16 @@ const newCave = (level) => {
     }
   }
 
+  // clean up map
+  let coords = []
+  map.traverse(([x,y]) => {
+    let icons = map.getSurrounding(x,y).map(([_, icon]) => icon )
+    if (icons.every((el) => el === "#" || el === undefined)) {
+      coords.push([x,y])
+    }
+  })
+  // coords.forEach((coords) => map.set(...coords, ""))
+
   return map;
 }
 
@@ -213,4 +223,5 @@ function start() {
 window.onload = () => {
   window.onscroll = scroller
   start()
+  gameMode()
 }

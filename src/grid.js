@@ -27,10 +27,20 @@ class Grid {
   set(x,y, data) {
     this.data[y][x] = data
   }
+  getSurrounding(x,y) {
+    let result=[]
+    this.traverse((coords,data) => {
+      result.push([coords, data])
+    }, x-1, y-1, 3, 3)
+    return result
+  }
   getCardinals(x,y) {
     return cardinals.map(([xoff, yoff]) => [[x+xoff,y+yoff], this.get(x+xoff, y+yoff)])
   }
   get(x,y) {
+    if (x<0 || y<0 || x>=this.width || y>=this.height)
+      return undefined;
+
     return this.data[y][x]
   }
   flipV() {
@@ -38,6 +48,13 @@ class Grid {
   }
   flipH() {
     this.data = this.data.map(r => r.reverse())
+  }
+  traverse(fn, left=0, top=0, w=this.width, h=this.height) {
+    for (let x=left; x<left+w; x++) {
+      for (let y=top; y<top+h; y++) {
+        fn([x,y], this.get(x,y))
+      }
+    }
   }
   find(data, left=0, top=0, w=this.width, h=this.height) {
     for (let x=left; x<left+w; x++) {

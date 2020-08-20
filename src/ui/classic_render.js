@@ -42,25 +42,8 @@ const renderTile = (cell, icon) => {
     // cell.style.backgroundColor = "#012"
     cell.style.color = "saddlebrown"
   }
-
-  // let child = document.createElement("div")
-  // cell.append(child)
-  // cell.style.width="40px"
-  // let child = cell
-  // child.style.width="40px"
-  // child.style.height="40px"
-  // child.style.imageRendering="pixelated";
-  // child.style.backgroundSize="auto calc(240px*40/16)"
-  // // child.style.display="none"
-
-  // if (icon == "@") {
-  //   // cell.childNodes[0].remove()
-  //   child.style.display="block"
-  //   child.style.backgroundImage ="url(loveable_rogue.png)";
-  //   child.style.backgroundPosition="calc(112px*40/16) calc(-144px*40/16)";
-
-  // }
-  if (icon == "#") {
+  if (icon === "#") {
+    cell.style.fontSize = "0.65em"
     cell.style.color = "#777"
     cell.style.backgroundColor = "#222"
   }
@@ -70,6 +53,18 @@ class ClassicRender {
   constructor() {
     this.grid = new CSSGrid("grid", game.width, game.height)
     window.grid = this.grid
+    this.boot()
+  }
+
+  boot() {
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+
+    // w -= 20;
+    let cellSize = w/game.width
+    this.grid.el.style.fontSize=`${cellSize*0.80}px`
+    this.grid.el.style.setProperty("grid-auto-rows", `${cellSize}px`)
+    this.grid.el.style.setProperty("grid-auto-columns", `calc(100%/${game.width})`)
   }
 
   dash() {
@@ -88,7 +83,6 @@ class ClassicRender {
       }
     }
   }
-
 }
 
 export { ClassicRender }
