@@ -170,9 +170,6 @@ document.onkeydown = (event) =>  {
 }
 
 let grid = document.querySelector("#grid")
-grid.style.top="0"
-grid.style.opacity="0"
-grid.style.position="fixed"
 
 
 
