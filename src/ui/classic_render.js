@@ -42,17 +42,18 @@ const colorize = (icon, cell) => {
     cell.style.color = "saddlebrown"
   }
 
-  let child = document.createElement("div")
-  cell.append(child)
-  cell.style.width="40px"
+  // let child = document.createElement("div")
+  // cell.append(child)
+  // cell.style.width="40px"
+  let child = cell
   child.style.width="40px"
   child.style.height="40px"
   child.style.imageRendering="pixelated";
   child.style.backgroundSize="auto calc(240px*40/16)"
-  child.style.display="none"
+  // child.style.display="none"
 
   if (icon == "@") {
-    cell.childNodes[0].remove()
+    // cell.childNodes[0].remove()
     child.style.display="block"
     child.style.backgroundImage ="url(loveable_rogue.png)";
     child.style.backgroundPosition="calc(112px*40/16) calc(-144px*40/16)";
@@ -60,7 +61,8 @@ const colorize = (icon, cell) => {
   }
   if (icon == "#") {
     // console.log(cell.innerHTML)
-    cell.childNodes[0].remove()
+    // cell.childNodes[0].remove()
+    child.innerHTML=""
     child.style.display="block"
     child.style.backgroundImage ="url(loveable_rogue.png)";
     child.style.backgroundPosition="0px calc(-160px*40/16)";
@@ -83,7 +85,7 @@ class ClassicRender {
 
   dash() {
     let face = game.health === 0 ? ";(" : ""
-    let dash = document.querySelector("#grid .status")
+    let dash = document.querySelector("#status")
     dash.innerHTML = `H: ${game.health} L: ${game.level} WA: ${game.weapon}/${game.armor}` +
       ` *: ${game.gold} ${face}${game.wonMessage}`;
   }
