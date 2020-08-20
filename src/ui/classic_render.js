@@ -45,40 +45,39 @@ const colorize = (icon, cell) => {
   // let child = document.createElement("div")
   // cell.append(child)
   // cell.style.width="40px"
-  let child = cell
-  child.style.width="40px"
-  child.style.height="40px"
-  child.style.imageRendering="pixelated";
-  child.style.backgroundSize="auto calc(240px*40/16)"
-  // child.style.display="none"
+  // let child = cell
+  // child.style.width="40px"
+  // child.style.height="40px"
+  // child.style.imageRendering="pixelated";
+  // child.style.backgroundSize="auto calc(240px*40/16)"
+  // // child.style.display="none"
 
-  if (icon == "@") {
-    // cell.childNodes[0].remove()
-    child.style.display="block"
-    child.style.backgroundImage ="url(loveable_rogue.png)";
-    child.style.backgroundPosition="calc(112px*40/16) calc(-144px*40/16)";
+  // if (icon == "@") {
+  //   // cell.childNodes[0].remove()
+  //   child.style.display="block"
+  //   child.style.backgroundImage ="url(loveable_rogue.png)";
+  //   child.style.backgroundPosition="calc(112px*40/16) calc(-144px*40/16)";
 
-  }
+  // }
   if (icon == "#") {
-    // console.log(cell.innerHTML)
-    // cell.childNodes[0].remove()
-    child.innerHTML=""
-    child.style.display="block"
-    child.style.backgroundImage ="url(loveable_rogue.png)";
-    child.style.backgroundPosition="0px calc(-160px*40/16)";
-    // child.style.backgroundColor="red";
-    // child.style.border="2px solid red"
-    // child.style.backgroundRepeat="no-repeat"
-    // child.style.transform ="scaleX(2.7)"
-    // cell.style.color = "#666"
-    // cell.style.opacity="0.5"
+  //   // console.log(cell.innerHTML)
+  //   // cell.childNodes[0].remove()
+  //   child.innerHTML=""
+  //   child.style.display="block"
+  //   child.style.backgroundImage ="url(loveable_rogue.png)";
+  //   child.style.backgroundPosition="0px calc(-160px*40/16)";
+  //   // child.style.backgroundColor="red";
+  //   // child.style.border="2px solid red"
+  //   // child.style.backgroundRepeat="no-repeat"
+  //   // child.style.transform ="scaleX(2.7)"
+  //   // cell.style.color = "#666"
+  //   // cell.style.opacity="0.5"
   }
 }
 
 class ClassicRender {
   constructor() {
     this.grid = new CSSGrid("grid", game.width, game.height)
-  // grid.colorize = (...args) => { colorize(...args); emojize(...args) }
     this.grid.colorize = colorize;
     window.grid = this.grid
   }

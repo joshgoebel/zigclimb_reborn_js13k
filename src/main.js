@@ -2,6 +2,7 @@ const WIDTH = 40
 const HEIGHT = 20
 
 import { ClassicRender } from "./ui/classic_render"
+import { TileRender } from "./ui/tile_render"
 import { Grid } from "./grid.js"
 import { percentChance, rand, addVector } from "./lib/utils"
 import { zzfx } from "./lib/zzfx"
@@ -139,7 +140,7 @@ function start() {
   const game = new Game()
   window.game = game
 
-  const renderer = new ClassicRender()
+  const renderer = new TileRender()
   window.renderer = renderer
   renderer.draw()
 }

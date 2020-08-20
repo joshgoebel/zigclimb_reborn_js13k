@@ -8,15 +8,20 @@ export default class CSSGrid {
     this.build()
   }
   build() {
-    const size = this.width*(this.height)
-    this.el.innerHTML = "<span></span>".repeat(size)
+    this.el.innerHTML = "<span></span>".repeat(this.size)
     let last = this.el.childNodes[this.el.childNodes.length-1]
     last.style.gridColumn = `${this.width} / ${this.width+1}`
     // last.style.gridRow = `${this.height} / ${this.height+1}`
     this.cells = this.el.childNodes;
   }
+  get size() {
+    return this.width*(this.height)
+  }
   offset(x,y) {
     return y * this.width + x
+  }
+  getCell([x,y]) {
+    return this.cells[this.offset(x,y)]
   }
   set([x,y], icon) {
     let cell = this.cells[this.offset(x,y)]
