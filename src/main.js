@@ -136,19 +136,6 @@ let DIRS = {
 }
 
 
-function start() {
-  const game = new Game()
-  window.game = game
-
-  // const renderer = new TileRender()
-  const renderer = new ClassicRender()
-  window.renderer = renderer
-  renderer.draw()
-}
-
-window.onload = () => {
-  start()
-}
 
 const KEY_to_DIR = {
   ArrowLeft: "w",
@@ -169,6 +156,10 @@ const KEY_to_DIR = {
 
 document.onkeydown = (event) =>  {
   if (KEY_to_DIR[event.key]) {
+    event.preventDefault()
+    if (event.repeat)
+      return true;
+
     let dir = KEY_to_DIR[event.key]
     let vector = DIRS[dir]
     game.movePlayer(vector)
@@ -178,4 +169,51 @@ document.onkeydown = (event) =>  {
   }
 }
 
+let grid = document.querySelector("#grid")
+grid.style.top="0"
+grid.style.opacity="0"
+grid.style.position="fixed"
 
+
+
+let scroller = (ev) => {
+  let height = document.body.scrollHeight;
+  // console.log(ev)
+  // console.log(window.scrollY);
+  let page = height/4;
+
+  let diff = page*3 - window.scrollY
+
+  if (window.scrollY > page*2) {
+    let op = 1 - diff/page
+    grid.style.opacity = op
+  } else {
+    grid.style.opacity = 0
+  }
+
+  if (window.scrollY > page*3) {
+    gameMode()
+  }
+
+}
+
+function gameMode() {
+  document.body.className="play";
+  grid.style.opacity=1
+  window.onscroll=null
+}
+
+function start() {
+  const game = new Game()
+  window.game = game
+
+  // const renderer = new TileRender()
+  const renderer = new ClassicRender()
+  window.renderer = renderer
+  renderer.draw()
+}
+
+window.onload = () => {
+  window.onscroll = scroller
+  start()
+}

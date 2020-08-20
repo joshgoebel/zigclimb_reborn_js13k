@@ -21,6 +21,10 @@ export default class CSSGrid {
   getCell(coords) {
     return this.cells[this.offset(coords)]
   }
+  renderCell(coords, fn) {
+    let cell = getCell(coords)
+    fn(cell)
+  }
   set(coords, icon) {
     let cell = getCell(coords)
     cell.innerHTML = icon

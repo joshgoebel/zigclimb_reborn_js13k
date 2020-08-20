@@ -10,6 +10,51 @@ body {
   border-collapse: collapse;
 }
 
+.story {
+  display: flex;
+  font-family: -apple-system, "system-ui";
+  font-weight:100;
+  color:#fda;
+  font-style: italic;
+  font-size:45px;
+  padding:0 25%;
+  // width:50%;
+  height:100vh;
+  align-items: center;
+}
+.story p { z-index: 100; }
+.story p.down {
+  color:#544;
+  position: absolute;
+  left:50%;
+  bottom:5%;
+}
+.story.luck p {
+  // padding:50px;
+  // color:gold;
+  background:rgba(0,0,0,0.5);
+  font-style: normal;
+  color:white;
+  font-size:0.6em;
+  // font-weight:300;
+  margin:0 auto;
+  transition-duration: 2.5s;
+  transition-property: opacity;
+  opacity: 1;
+}
+.play .story { display: none; }
+.play #grid {
+  transition-duration: 0.5s;
+  transition-property: opacity;
+}
+.play .story.luck p {
+  opacity: 0;
+}
+.story.missing em {
+  // color:#c00;
+  font-weight: 300;
+}
+
 #game {
   margin: 0 auto;
   display: block;
