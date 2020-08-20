@@ -76,27 +76,7 @@ const newCave = () => {
   return map;
 }
 
-
-import {Gold, Wall, Floor, Potion, Armor, Weapon, Stairs} from "./game/entities"
-
-function animate(what) {
-  switch(what) {
-    case ".":
-      return new Floor();
-    case "#":
-      return new Wall();
-    case "*":
-      return new Gold();
-    case "!":
-      return new Potion();
-    case "%":
-      return new Armor();
-    case "(":
-      return new Weapon();
-    case "<":
-      return new Stairs();
-  }
-}
+import { animate, Wall } from "./game/entities"
 
 class Game {
   constructor() {
@@ -113,16 +93,31 @@ class Game {
   newLevel() {
     this.cave = newCave();
   }
+  tick() {
+
+  }
   movePlayer(vector) {
     let playerLocation = this.cave.find("@")
     let newLoc = addVector(playerLocation, vector)
     let icon = this.cave.get(...newLoc)
     let entity = animate(icon)
-    console.log(icon)
     if (!entity.isSolid) {
       entity.interact()
       this.cave.set(...playerLocation, ".")
       this.cave.set(...newLoc, "@")
+    }
+    if (entity instanceof Wall) {
+      entity.interact()
+    }
+    // attack monsters
+    if (entity.isAlive) {
+      // do attack
+      let atk = this.weapon + rand(5)
+      if (atk >= entity.level) {
+        this.cave.set(...newLoc, "*")
+      } else {
+
+      }
     }
   }
   get wonMessage() {
@@ -147,6 +142,7 @@ function start() {
   window.game = game
 
   const renderer = new ClassicRender()
+  window.renderer = renderer
   renderer.draw()
 }
 
@@ -176,10 +172,9 @@ document.onkeyup = (event) =>  {
     let dir = KEY_to_DIR[event.key]
     let vector = DIRS[dir]
     game.movePlayer(vector)
+    game.tick()
 
-    const renderer = new ClassicRender()
     renderer.draw()
-    // alert(dir)
   }
 }
 
