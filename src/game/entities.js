@@ -79,11 +79,13 @@ export class Floor extends Entity {
 export class Gold extends Entity {
   constructor() {
     super()
-    this.value = game.level + rand(3)
+    // NOTE: This does not match the original, but what did the monster
+    // drop if it was 0 gems?
+    this.value = (game.level + rand(3)) || 1
   }
   interact() {
     zzfx(...[,,909,,.08,,1,1.94,,,239,.1,,,,,,.58,.09]); // Pickup 110
-    this.gold += this.value
+    game.gold += this.value
   }
 }
 

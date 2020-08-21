@@ -62,6 +62,7 @@ class ClassicRender {
 
     // w -= 20;
     let cellSize = w/game.width
+    document.querySelector("#status").style.fontSize = `${cellSize*0.60}px`
     this.grid.el.style.fontSize=`${cellSize*0.80}px`
     this.grid.el.style.setProperty("grid-auto-rows", `${cellSize}px`)
     this.grid.el.style.setProperty("grid-auto-columns", `calc(100%/${game.width})`)
@@ -70,8 +71,13 @@ class ClassicRender {
   dash() {
     let face = game.health === 0 ? ";(" : ""
     let dash = document.querySelector("#status")
-    dash.innerHTML = `H: ${game.health} L: ${game.level} WA: ${game.weapon}/${game.armor}` +
-      ` *: ${game.gold} ${face}${game.wonMessage}`;
+    let classic = `H: ${game.health} L: ${game.level} WA: ${game.weapon}/${game.armor}` +
+    ` *: ${game.gold} ${face}${game.wonMessage}`;
+    let newer = `HP=${game.health} ` +
+     `&middot; Level ${game.level} ` +
+     `&middot; W/A= ${game.weapon}/${game.armor} ` +
+     `&middot; ${game.gold} gems ${face}${game.wonMessage}`;
+    dash.innerHTML = newer
   }
 
   draw() {

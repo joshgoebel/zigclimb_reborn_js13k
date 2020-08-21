@@ -87,6 +87,13 @@ const newCave = (level) => {
 
 import { animate, Wall } from "./game/entities"
 
+function newWinMap() {
+  let map = new Grid(WIDTH, HEIGHT)
+  map.fill(".")
+  map.set(0,0,"@")
+  return map
+}
+
 class Game {
   constructor() {
     this.level = 0
@@ -100,6 +107,11 @@ class Game {
     this.newLevel()
   }
   newLevel() {
+    if (this.level===10) {
+      this.cave = newWinMap()
+      return
+    }
+
     this.cave = newCave(this.level);
   }
   tick() {
