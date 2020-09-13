@@ -173,7 +173,17 @@ const KEY_to_DIR = {
   d: "e",
   z: "sw",
   x: "s",
-  c: "se"
+  c: "se",
+
+  '7': "nw",
+  '8': "n",
+  '9': "ne",
+  '4': "w",
+  '5': "s",
+  '6': "e",
+  '1': "sw",
+  '2': "s",
+  '3': "se",
 }
 
 document.onkeydown = (event) =>  {
