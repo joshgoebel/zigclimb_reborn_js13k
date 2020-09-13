@@ -12,6 +12,7 @@ const TILES = {
   "(": 20,
   "!": 35,
   "<": 18,
+  "*": 19,
 
   // 16 monsters
   "a": MONSTER+1, // brown bat

@@ -80,7 +80,7 @@ const newCave = (level) => {
       coords.push([x,y])
     }
   })
-  // coords.forEach((coords) => map.set(...coords, ""))
+  coords.forEach((coords) => map.set(...coords, ""))
 
   return map;
 }
@@ -157,8 +157,6 @@ let DIRS = {
   sw: [-1, 1]
 }
 
-
-
 const KEY_to_DIR = {
   ArrowLeft: "w",
   ArrowRight: "e",
@@ -186,6 +184,24 @@ const KEY_to_DIR = {
   '3': "se",
 }
 
+
+let renderer;
+
+
+const changeRenderer = () => {
+  if (renderer instanceof ClassicRender) {
+    renderer = new TileRender()
+  } else {
+    renderer = new ClassicRender()
+  }
+  window.renderer = renderer
+  renderer.draw()
+}
+
+KEY_HANDLERS = {
+  't': changeRenderer
+}
+
 document.onkeydown = (event) =>  {
   if (KEY_to_DIR[event.key]) {
     event.preventDefault()
@@ -198,6 +214,15 @@ document.onkeydown = (event) =>  {
     game.tick()
 
     renderer.draw()
+    return;
+  }
+  // handle other keyboard actions
+  let handler = KEY_HANDLERS[event.key]
+  if (handler) {
+    event.preventDefault();
+    if (event.repeat) return true;
+
+    handler();
   }
 }
 
@@ -236,8 +261,8 @@ function start() {
   const game = new Game()
   window.game = game
 
-  // const renderer = new TileRender()
-  const renderer = new ClassicRender()
+  renderer = new TileRender()
+  // renderer = new ClassicRender()
   window.renderer = renderer
   renderer.draw()
 }
