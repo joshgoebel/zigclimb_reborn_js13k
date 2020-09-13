@@ -1,4 +1,5 @@
 import CSSGrid from "../lib/css_grid"
+import { Render } from "./render.js"
 
 
 const renderTile = (cell, icon) => {
@@ -45,8 +46,9 @@ const renderTile = (cell, icon) => {
   }
 }
 
-class ClassicRender {
+class ClassicRender extends Render {
   constructor() {
+    super()
     this.grid = new CSSGrid("grid", game.width, game.height)
     window.grid = this.grid
     this.boot()
@@ -79,7 +81,8 @@ class ClassicRender {
   draw() {
     this.dash()
     game.cave.traverse((coord, tile) => {
-      renderTile(this.grid.getCell(coord), tile)
+      if (this.visible(coord))
+        renderTile(this.grid.getCell(coord), tile)
     })
 
   }

@@ -105,17 +105,29 @@ class Game {
     this.width = WIDTH
     this.height = HEIGHT
     this.newLevel()
+    this.sight()
   }
   newLevel() {
     if (this.level===10) {
       this.cave = newWinMap()
       return
     }
+    this.fog = new Grid(WIDTH, HEIGHT)
+    this.fog.fill("*")
 
     this.cave = newCave(this.level);
   }
   tick() {
+    this.sight()
 
+  }
+  sight() {
+    let [px, py] = this.cave.find("@")
+    this.cave.traverse(([x,y], tile) => {
+      let diff = (px-x)*(px-x)+(py-y)*(py-y)
+      if (diff<=25)
+        this.fog.set(x,y, " ")
+    })
   }
   movePlayer(vector) {
     let playerLocation = this.cave.find("@")
