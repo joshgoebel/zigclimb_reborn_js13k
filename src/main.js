@@ -102,9 +102,9 @@ function isMonster(tile) {
 class Game {
   constructor() {
     this.level = 0
-    this.health = 10
+    this.health = 100
     this.armor = 1
-    this.weapon = 1
+    this.weapon = 100
     this.gold = 0
 
     this.width = WIDTH

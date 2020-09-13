@@ -10,6 +10,8 @@ export class Render {
     game.cave.traverse((coord, tile) => {
       let cell = this.grid.getCell(coord)
       cell.innerHTML = ""
+      cell.style.backgroundColor=""
+      cell.style.fontSize=""
     })
   }
 

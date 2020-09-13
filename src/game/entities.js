@@ -45,7 +45,6 @@ export class Monster {
     battle()
   }
   attack(foe) {
-    battle()
     let hit = this.level + rand(5)
     if (hit >= foe.level) {
       foe.dead = true
