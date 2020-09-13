@@ -6,6 +6,7 @@ import { TileRender } from "./ui/tile_render"
 import { Grid } from "./grid.js"
 import { percentChance, rand, addVector } from "./lib/utils"
 import { zzfx } from "./lib/zzfx"
+import { Monster} from "./game/entities"
 
 const dig = (map, x,  y) => {
   // console.log("dig",x,y)
@@ -94,6 +95,10 @@ function newWinMap() {
   return map
 }
 
+function isMonster(tile) {
+  return tile >= "a" && tile <= "z"
+}
+
 class Game {
   constructor() {
     this.level = 0
@@ -110,7 +115,7 @@ class Game {
   }
   filledWithFog() {
     this.fog = new Grid(WIDTH, HEIGHT)
-    this.fog.fill("*")
+    this.fog.fill(".")
   }
   newLevel() {
     if (this.level===10) {
@@ -122,7 +127,7 @@ class Game {
   }
   tick() {
     this.sight()
-
+    this.moveMonsters();
   }
   advanceLevel() {
     this.level++
@@ -135,6 +140,39 @@ class Game {
       let diff = (px-x)*(px-x)+(py-y)*(py-y)
       if (diff<=25)
         this.fog.set(x,y, null)
+    })
+  }
+  moveMonsters() {
+    let playerLocation = this.cave.find("@")
+    let monsters = []
+    this.cave.traverse((coords, tile) => {
+      if (isMonster(tile)) {
+        monsters.push({type: tile, pos: coords})
+      }
+    })
+    monsters.forEach(m => {
+      let monster = new Monster(m.type)
+
+      let [px, py] = playerLocation
+      let [mx, my] = m.pos
+      let vector = [[px - mx], [py-my]]
+      let reduced = vector.map(n => n < 0 ? -1 : (n>0 ? 1 : 0))
+      let newLoc = addVector(m.pos, reduced)
+      let space = this.cave.get(...newLoc)
+      console.log("want to move to", newLoc, space)
+      if (space === ".") {
+        this.cave.set(...m.pos, ".")
+        this.cave.set(...newLoc, m.type)
+      } else if (space === "@") {
+        monster.attackPlayer()
+      } else if (isMonster(space)) {
+        let foe = new Monster(space)
+        monster.attack(foe)
+        if (foe.dead) {
+          this.cave.set(...newLoc, "*")
+        }
+      }
+
     })
   }
   movePlayer(vector) {

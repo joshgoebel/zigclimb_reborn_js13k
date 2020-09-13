@@ -17,7 +17,7 @@ class Entity {
   interact() {}
 }
 
-class Monster {
+export class Monster {
   constructor(letter) {
     this.level = letter.charCodeAt(0) - "a".charCodeAt(0)
   }
@@ -25,6 +25,18 @@ class Monster {
   get isSolid() { return true }
   interact() {
 
+  }
+  attack(foe) {
+    let hit = this.level + rand(5)
+    if (hit >= foe.level) {
+      foe.dead = true
+    }
+  }
+  attackPlayer() {
+    let hit = this.level + rand(5) - game.armor
+    if (hit>=3) {
+      game.health -= 1
+    }
   }
 }
 
