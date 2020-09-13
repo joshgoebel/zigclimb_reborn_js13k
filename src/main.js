@@ -243,14 +243,13 @@ const KEY_to_DIR = {
 }
 
 
-let renderer;
-
-
 const changeRenderer = () => {
   if (renderer instanceof ClassicRender) {
     renderer = new TileRender()
+    localStorage.setItem("zig-render","tile")
   } else {
     renderer = new ClassicRender()
+    localStorage.setItem("zig-render","classic")
   }
   window.renderer = renderer
   renderer.draw()
@@ -319,9 +318,11 @@ function start() {
   const game = new Game()
   window.game = game
 
-  renderer = new TileRender()
-  // renderer = new ClassicRender()
-  window.renderer = renderer
+  let renderType = localStorage.getItem("zig-render") || "tile"
+  if (renderType === "tile")
+    window.renderer = new TileRender()
+  else
+  window.renderer = new ClassicRender()
   renderer.draw()
 }
 

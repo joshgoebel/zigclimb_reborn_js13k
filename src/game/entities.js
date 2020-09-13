@@ -1,4 +1,5 @@
-import { rand } from "../lib/utils"
+import { oneOf, rand } from "../lib/utils"
+import { zzfx } from "../lib/zzfx";
 
 const MAX_HEALTH = 10
 
@@ -6,9 +7,21 @@ const powerup = () => {
   zzfx(...[,0,300,.15,.15,.5,,.5,,,50,,.3,,,,.1,.5,.1]); // Powerup 115
 }
 
-const FIGHT_FX = [
-
+BATTLE_SOUNDS = [
+  [...[,,158,,.05,.13,4,0,,,,,,.5,,.5,.15,.78,.02,.07]],
+  [...[,,126,,.01,.25,,2.49,,,,,,1.3,,.2,.03,.72,.05,.17]],
+  [...[,,480,,,.15,4,.85,,4.1,,,,,1,.4,.17,.74,.03]],
+  [...[,,363,,,.11,,2.42,.2,.3,,,,1.9,.3,.2,.07,.68,.06]],
+  [...[,,266,,.01,.11,4,2.6,,,,,,.1,,.5,,.95,.06,.04]],
+  [...[,,285,,.06,.27,,2.85,,,,,,1.8,-0.8,.2,.04,.73,.1]],
+  [...[,,221,,,.32,1,2.93,,,,,,.1,,.3,.14,.82,.01,.29]]
 ]
+
+const battle = () => {
+  let sfx = oneOf(BATTLE_SOUNDS)
+  zzfx(...sfx)
+}
+
 
 class Entity {
   constructor() {}
@@ -27,12 +40,14 @@ export class Monster {
 
   }
   attack(foe) {
+    battle()
     let hit = this.level + rand(5)
     if (hit >= foe.level) {
       foe.dead = true
     }
   }
   attackPlayer() {
+    battle()
     let hit = this.level + rand(5) - game.armor
     if (hit>=3) {
       game.health -= 1
