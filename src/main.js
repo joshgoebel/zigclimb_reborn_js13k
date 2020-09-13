@@ -115,7 +115,7 @@ class Game {
   }
   filledWithFog() {
     this.fog = new Grid(WIDTH, HEIGHT)
-    this.fog.fill(".")
+    this.fog.fill("*")
   }
   newLevel() {
     if (this.level===10) {
@@ -201,6 +201,11 @@ class Game {
     }
   }
   get wonMessage() {
+    if (this.level===10)
+      return "You won, you escaped!"
+    if (this.health<=0) {
+      return "You died."
+    }
     return ""
   }
 }

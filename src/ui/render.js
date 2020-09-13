@@ -21,7 +21,7 @@ export class Render {
     let newer = `HP=${game.health} ` +
      `&middot; Level ${game.level} ` +
      `&middot; W/A= ${game.weapon}/${game.armor} ` +
-     `&middot; ${game.gold} gems ${face}${game.wonMessage}`;
+     `&middot; ${game.gold} gems ${face} ${game.wonMessage}`;
     dash.innerHTML = newer
   }
 
