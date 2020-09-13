@@ -13,6 +13,7 @@ const TILES = {
   "!": 35,
   "<": 18,
   "*": 19,
+  "FOG": 9,
 
   // 16 monsters
   "a": MONSTER+1, // brown bat
@@ -45,6 +46,11 @@ class SpriteSheet {
   render(cell, icon) {
     let tile = TILES[icon]
     if (tile === undefined) return;
+
+    if (icon === "FOG") {
+      cell.style.backgroundImage=""
+      return
+    }
 
     cell.title = icon
     cell.innerHTML = ""
@@ -163,10 +169,14 @@ class TileRender extends Render {
   }
 
   draw() {
+    this.clear()
     this.dash()
     game.cave.traverse((coord, tile) => {
       if (this.visible(coord))
         renderTile(this.grid.getCell(coord), tile)
+      else
+        SS.render(this.grid.getCell(coord), "FOG")
+        // renderTile(this.grid.getCell(coord), " ")
     })
   }
 }

@@ -38,7 +38,7 @@ export class Wall extends Entity {
 export class Stairs extends Entity {
   interact() {
     zzfx(...[.7,0,300,.06,.5,.25,2,5,,,-50,-0.1,.25,,,,,,.15]); // Sound Default - Copy 1
-    game.level++
+    game.advanceLevel()
   }
 }
 export class Armor extends Entity {

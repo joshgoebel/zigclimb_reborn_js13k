@@ -105,15 +105,18 @@ class Game {
     this.width = WIDTH
     this.height = HEIGHT
     this.newLevel()
+    this.filledWithFog();
     this.sight()
+  }
+  filledWithFog() {
+    this.fog = new Grid(WIDTH, HEIGHT)
+    this.fog.fill("*")
   }
   newLevel() {
     if (this.level===10) {
       this.cave = newWinMap()
       return
     }
-    this.fog = new Grid(WIDTH, HEIGHT)
-    this.fog.fill("*")
 
     this.cave = newCave(this.level);
   }
@@ -121,12 +124,17 @@ class Game {
     this.sight()
 
   }
+  advanceLevel() {
+    this.level++
+    this.newLevel()
+    this.filledWithFog()
+  }
   sight() {
     let [px, py] = this.cave.find("@")
     this.cave.traverse(([x,y], tile) => {
       let diff = (px-x)*(px-x)+(py-y)*(py-y)
       if (diff<=25)
-        this.fog.set(x,y, " ")
+        this.fog.set(x,y, null)
     })
   }
   movePlayer(vector) {
@@ -135,9 +143,9 @@ class Game {
     let icon = this.cave.get(...newLoc)
     let entity = animate(icon)
     if (!entity.isSolid) {
-      entity.interact()
       this.cave.set(...playerLocation, ".")
       this.cave.set(...newLoc, "@")
+      entity.interact()
     }
     if (entity instanceof Wall) {
       entity.interact()

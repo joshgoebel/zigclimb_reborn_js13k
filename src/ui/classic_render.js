@@ -79,6 +79,7 @@ class ClassicRender extends Render {
   }
 
   draw() {
+    this.clear()
     this.dash()
     game.cave.traverse((coord, tile) => {
       if (this.visible(coord))
