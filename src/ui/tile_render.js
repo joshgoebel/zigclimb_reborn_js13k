@@ -45,15 +45,18 @@ class SpriteSheet {
     let tile = TILES[icon]
     if (tile === undefined) return;
 
-    if (icon === "FOG") {
-      cell.style.backgroundImage=""
-      return
-    }
+
 
     cell.title = icon
     cell.innerHTML = ""
     cell.style.width=`${this.renderSize}px`
     cell.style.height=`${this.renderSize}px`
+
+    if (icon === "FOG") {
+      cell.title=""
+      cell.style.backgroundImage=""
+      return
+    }
 
     cell.style.backgroundImage = this.url;
     // TODO: move to css

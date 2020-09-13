@@ -102,9 +102,9 @@ function isMonster(tile) {
 class Game {
   constructor() {
     this.level = 0
-    this.health = 100
+    this.health = 10
     this.armor = 1
-    this.weapon = 100
+    this.weapon = 1
     this.gold = 0
 
     this.width = WIDTH
@@ -269,6 +269,7 @@ KEY_HANDLERS = {
 
 document.onkeydown = (event) =>  {
   if (KEY_to_DIR[event.key]) {
+    finishBoot()
     event.preventDefault()
     if (event.repeat)
       return true;
@@ -302,28 +303,56 @@ let scroller = (ev) => {
   let height = document.body.scrollHeight;
   // console.log(ev)
   // console.log(window.scrollY);
-  let page = height/4;
+  let page = document.querySelector(".story").offsetHeight;
+  // alert(page)
 
   let diff = page*3 - window.scrollY
 
-  if (window.scrollY > page*2) {
-    let op = 1 - diff/page
-    grid.style.opacity = op
-  } else {
-    grid.style.opacity = 0
+  // if (window.scrollY > page*2) {
+  //   let op = 1 - diff/page
+  //   grid.style.opacity = op
+  // } else {
+  //   grid.style.opacity = 0
+  // }
+
+
+  if (window.scrollY >= page*2.25 && state === 0) {
+    gameMode()
   }
 
-
-  if (window.scrollY > page*3) {
-    gameMode()
+  if (window.scrollY === 0 && state === 1 ) {
+    // alert("boot")
+    state++
+    document.body.className="gohome";
+    adventure.style.display="none"
+    stayhome.style.display="block"
+    play.style.display="none"
   }
 
 }
 
+var state = 0;
+
 function gameMode() {
   document.body.className="play";
-  grid.style.opacity=1
-  window.onscroll=null
+  state = 1;
+  // setTimeout(()=> {
+    // document.querySelectorAll(".story").forEach(el => el.style.display="none");
+    // grid.style.opacity=1
+  // }, 2000)
+}
+
+function finishBoot()
+{
+  if (booted) return;
+
+  window.booted = true
+  window.onscroll = null
+
+  setTimeout(()=> {
+    document.querySelectorAll(".story").forEach(el => el.style.display="none");
+    // grid.style.opacity=1
+  }, 50)
 }
 
 function start() {
@@ -340,10 +369,11 @@ function start() {
 
 OS = new Proxy({},{get: () => () => {} })
 
+window.booted = false
 window.onload = () => {
   OS.setTitle("Zigclimb Reborn")
   window.onscroll = scroller
   start()
 
-  gameMode()
+  // gameMode()
 }

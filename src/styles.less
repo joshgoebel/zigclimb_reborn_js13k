@@ -161,16 +161,32 @@ input {
 }
 
 #grid {
-  top: 0;
-  opacity: 0;
-  position: fixed;
+  // top: 0;
+  // opacity: 0;
+  // position: fixed;
   width:calc(100% - 10px * 2);
 }
-.play .story { display: none; }
+#play {
+  height:100vh;
+}
+.story {
+  opacity: 1;
+  transition-duration: 2s;
+  transition-property: opacity;
+}
+.gohome .story {
+  opacity: 1;
+}
+.play .story {
+  // display: none;
+  opacity: 0;
+  transition-duration: 2s;
+  transition-property: opacity;
+}
 .play #grid {
   width: auto;
   position: relative;
-  transition-duration: 0.5s;
+  transition-duration: 1s;
   transition-property: opacity;
 }
 .play .story.luck p {
