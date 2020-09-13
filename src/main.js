@@ -257,7 +257,9 @@ const changeRenderer = () => {
 }
 
 KEY_HANDLERS = {
-  't': changeRenderer
+  't': changeRenderer,
+  "n": start,
+  "N": start
 }
 
 document.onkeydown = (event) =>  {
@@ -268,8 +270,12 @@ document.onkeydown = (event) =>  {
 
     let dir = KEY_to_DIR[event.key]
     let vector = DIRS[dir]
-    game.movePlayer(vector)
-    game.tick()
+    if (game.health>0) {
+      game.movePlayer(vector)
+      game.tick()
+    } else {
+      alert("You are dead.  Hit `N` to start a new game.")
+    }
 
     renderer.draw()
     return;
