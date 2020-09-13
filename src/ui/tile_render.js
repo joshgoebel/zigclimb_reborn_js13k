@@ -22,13 +22,13 @@ const TILES = {
   "d": MONSTER, // blue thingy?
   "e": MONSTER + 18, // green snake
   "f": MONSTER + 16, // grey horse?
-  "g": 5,
-  "h": 5,
-  "i": 5,
+  "g": MONSTER + 6, // griffin thingy
+  "h": 5, // spikes chase you around
+  "i": MONSTER + 14, // green ogre with purple shirt
   "j": MONSTER + 17, // brown snake
   "k": MONSTER + 9, // gold dragon thing
-  "l": 5,
-  "m": 5,
+  "l": MONSTER + 19, // green hulk thingy
+  "m": MONSTER + 25, // zombie
   "n": MONSTER + 3, // green dragon
   "o": MONSTER + 15, // purple outline
   "p": MONSTER + 22 // reaper/haunt in purple robe
