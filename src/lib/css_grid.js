@@ -6,6 +6,7 @@ export default class CSSGrid {
     this.build()
   }
   build() {
+    this.el.style.gridAutoColumns=""
     this.el.innerHTML = "<span/></span>".repeat(this.size)
     let last = this.el.lastChild
     last.style.gridColumn = `${this.width} / ${this.width+1}`

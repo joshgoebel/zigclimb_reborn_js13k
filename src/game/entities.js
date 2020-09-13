@@ -7,6 +7,10 @@ const powerup = () => {
   zzfx(...[,0,300,.15,.15,.5,,.5,,,50,,.3,,,,.1,.5,.1]); // Powerup 115
 }
 
+const hurt = () => {
+  zzfx(...[,,26,.06,.12,0,3,1.3,,,,,,,3,,.14,,.18]); // Random 80
+}
+
 BATTLE_SOUNDS = [
   [...[,,158,,.05,.13,4,0,,,,,,.5,,.5,.15,.78,.02,.07]],
   [...[,,126,,.01,.25,,2.49,,,,,,1.3,,.2,.03,.72,.05,.17]],
@@ -36,8 +40,9 @@ export class Monster {
   }
   get isAlive() { return true }
   get isSolid() { return true }
+  // called when a player attacks
   interact() {
-
+    battle()
   }
   attack(foe) {
     battle()
@@ -51,6 +56,7 @@ export class Monster {
     let hit = this.level + rand(5) - game.armor
     if (hit>=3) {
       game.health -= 1
+      hurt()
     }
   }
 }

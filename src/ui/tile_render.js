@@ -38,10 +38,8 @@ class SpriteSheet {
   constructor(url, opts) {
     this.url = url
     this.opts = opts
-    this.renderSize = 32
+    // this.renderSize = 32
 
-    let grid = document.querySelector("#grid")
-    grid.style.gridAutoColumns=`${this.renderSize}px`
   }
   render(cell, icon) {
     let tile = TILES[icon]
@@ -157,16 +155,18 @@ class TileRender extends Render {
   constructor() {
     super()
     this.grid = new CSSGrid("grid", game.width, game.height)
-    // this.grid.colorize = colorize;
     window.grid = this.grid
+
+    SS.renderSize=32
+    grid.el.style.gridAutoColumns=`${SS.renderSize}px`
   }
 
-  dash() {
-    let face = game.health === 0 ? ";(" : ""
-    let dash = document.querySelector("#status")
-    dash.innerHTML = `H: ${game.health} L: ${game.level} WA: ${game.weapon}/${game.armor}` +
-      ` *: ${game.gold} ${face}${game.wonMessage}`;
-  }
+  // dash() {
+  //   let face = game.health === 0 ? ";(" : ""
+  //   let dash = document.querySelector("#status")
+  //   dash.innerHTML = `H: ${game.health} L: ${game.level} WA: ${game.weapon}/${game.armor}` +
+  //     ` *: ${game.gold} ${face}${game.wonMessage}`;
+  // }
 
   draw() {
     this.clear()

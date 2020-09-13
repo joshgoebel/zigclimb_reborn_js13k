@@ -191,6 +191,7 @@ class Game {
     // attack monsters
     if (entity.isAlive) {
       // do attack
+      entity.interact()
       let atk = this.weapon + rand(5)
       if (atk >= entity.level) {
         this.cave.set(...newLoc, "*")
