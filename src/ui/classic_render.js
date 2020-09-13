@@ -13,7 +13,6 @@ const renderTile = (cell, icon) => {
     cell.style.color = "#069"
   }
   if (icon === ".") {
-    // cell.style.backgroundColor = "#012"
     cell.style.color = "#333"
     cell.className = "empty"
   }
@@ -21,25 +20,22 @@ const renderTile = (cell, icon) => {
     cell.style.color = "#fc6"
     cell.style.backgroundColor = "#1a1a00"
   }
+  if (icon === "*") {
+    cell.style.color = "rgb(58,150,221)"
+  }
   if (icon === "@") {
-    // cell.style.backgroundColor = "#012"
-    // cell.style.fontSize = "50px"
-    // cell.style.overflow="visible"
     cell.style.color = "white"
   }
   if (icon === "!") {
-    // cell.style.backgroundColor = "#012"
     cell.style.color = "#3c3"
   }
   if (icon === "<") {
     cell.style.backgroundColor = "";
   }
   if (icon === "(") {
-    // cell.style.backgroundColor = "#012"
     cell.style.color = "#c00"
   }
   if (icon === "%") {
-    // cell.style.backgroundColor = "#012"
     cell.style.color = "saddlebrown"
   }
   if (icon === "#") {
@@ -81,13 +77,11 @@ class ClassicRender {
   }
 
   draw() {
-    let map = game.cave
     this.dash()
-    for (let x =0; x<game.width; x++) {
-      for (let y =0; y<game.height; y++) {
-        renderTile(this.grid.getCell([x,y]), map.get(x,y))
-      }
-    }
+    game.cave.traverse((coord, tile) => {
+      renderTile(this.grid.getCell(coord), tile)
+    })
+
   }
 }
 

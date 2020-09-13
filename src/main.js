@@ -26,7 +26,7 @@ const dig = (map, x,  y) => {
 
 const newCave = (level) => {
 
-  let items = ["@","<","!","%","("]
+  let items = "@<!%(****".split("")
 
   let map = new Grid(WIDTH, HEIGHT)
 
@@ -194,7 +194,6 @@ document.onkeydown = (event) =>  {
 let grid = document.querySelector("#grid")
 
 
-
 let scroller = (ev) => {
   let height = document.body.scrollHeight;
   // console.log(ev)
@@ -209,6 +208,7 @@ let scroller = (ev) => {
   } else {
     grid.style.opacity = 0
   }
+
 
   if (window.scrollY > page*3) {
     gameMode()
@@ -232,8 +232,12 @@ function start() {
   renderer.draw()
 }
 
+OS = new Proxy({},{get: () => () => {} })
+
 window.onload = () => {
+  OS.setTitle("Zigclimb Reborn")
   window.onscroll = scroller
   start()
+
   gameMode()
 }
